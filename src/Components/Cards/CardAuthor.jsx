@@ -7,19 +7,26 @@ import Col from "react-bootstrap/Col";
 import ErrorFallback from "../../Errors/HandleError";
 import ButtonNetwork from "../Buttons/ButtonNetwork";
 
-const CardAuthor = ({}) => {
+const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
+  const [classBtn, size, variant] = stylesBtn;
+  const [title, subtitle] = contentCard;
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Card style={{ maxHeight: "10rem", maxWidth: "25rem" }}>
+        <Card {...props}>
           <Card.Body>
             <Row>
               <Col>
-                <Card.Title>Bill Gates</Card.Title>
-                <Card.Subtitle>Microsoft</Card.Subtitle>
+                <Card.Title>{title}</Card.Title>
+                <Card.Subtitle>{subtitle}</Card.Subtitle>
               </Col>
-              <Col>
-                <ButtonNetwork classGeneral="" content="Hola" size="md" variant="primary" />
+              <Col xs="3">
+                <ButtonNetwork
+                  classGeneral={classBtn}
+                  content={contentBtn}
+                  size={size}
+                  variant={variant}
+                />
               </Col>
             </Row>
           </Card.Body>
@@ -27,6 +34,12 @@ const CardAuthor = ({}) => {
       </ErrorBoundary>
     </>
   );
+};
+
+CardAuthor.propTypes = {
+  contentBtn: PropTypes.string.isRequired,
+  stylesBtn: PropTypes.arrayOf(PropTypes.string).isRequired,
+  contentCard: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default CardAuthor;

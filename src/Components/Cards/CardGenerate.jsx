@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import ErrorFallback from "../../Errors/HandleError";
 import ButtonNetwork from "../Buttons/ButtonNetwork";
 
-const CardGenerate = ({ quote, icons, styles, ...props }) => {
+const CardGenerate = ({ quote, icons, icon, styles, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
   const [classIcons, size, variant] = styleIcons;
   return (
@@ -25,18 +25,24 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
                 </Card.Title>
               </Col>
             </Row>
-            <ButtonNetwork
-              classGeneral={classIcons}
-              content={icons}
-              size={size}
-              variant={variant}
-            />
-            <ButtonNetwork
-              classGeneral={classIcons}
-              content={icons}
-              size={size}
-              variant={variant}
-            />
+            <Row>
+              <Col xs="2">
+                <ButtonNetwork
+                  classGeneral={classIcons}
+                  content={icons}
+                  size={size}
+                  variant={variant}
+                />
+              </Col>
+              <Col xs="2">
+                <ButtonNetwork
+                  classGeneral={classIcons}
+                  content={icon}
+                  size={size}
+                  variant={variant}
+                />
+              </Col>
+            </Row>
           </Card.Body>
         </Card>
       </ErrorBoundary>
@@ -47,6 +53,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
 CardGenerate.propTypes = {
   quote: PropTypes.string.isRequired,
   icons: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
   styles: PropTypes.array,
 };
 

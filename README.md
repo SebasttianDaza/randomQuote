@@ -32,7 +32,7 @@
 
 ## Overview
 
-![screenshot](public/assets/image/project-min.png)
+![screenshot](/public/assest/image/imageRbdomQuo.png)
 
 Website developed with ReactJS, React-Boostrap, Bootstrap, I've allow me to learn more about Components resuables and usefull. Also, of course I've been more easy with the components what it offers for default, but also I've customised it to my needs with SASS and CSS.
 
