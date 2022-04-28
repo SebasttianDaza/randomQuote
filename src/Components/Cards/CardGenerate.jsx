@@ -52,8 +52,8 @@ const CardGenerate = ({ quote, icons, icon, styles, ...props }) => {
 
 CardGenerate.propTypes = {
   quote: PropTypes.string.isRequired,
-  icons: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icons: PropTypes.object.isRequired,
+  icon: PropTypes.object.isRequired,
   styles: PropTypes.array,
 };
 

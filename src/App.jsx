@@ -5,12 +5,14 @@ import { BsTwitter, BsFillForwardFill, BsInstagram } from "react-icons/bs";
 import { useEffect } from "react";
 
 import useFetch from "./Hooks/useFetch";
+import useStateBasic from "./Hooks/useStateBasic";
 import ComponentLoading from "./Components/Spinners/Spinner";
 import CardGenerate from "./Components/Cards/CardGenerate";
 import CardAuthor from "./Components/Cards/CardAuthor";
 
 const App = () => {
   const [state, fetchData] = useFetch();
+  const [stateQuoteAuthor, fetchQuoteAuthor] = useFetch();
 
   useEffect(() => {
     fetchData({
@@ -19,7 +21,24 @@ const App = () => {
     });
   }, [fetchData]);
 
-  console.log(state);
+  const nextQuoteRandom = () => {
+    fetchData({
+      url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
+      method: "GET",
+    });
+  };
+
+  const searchQuoteAboutAuthor = (author) => {
+    const authorClean = author.replace(/\s/g, "").toLowerCase();
+    fetchQuoteAuthor({
+      url: `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`,
+      method: "GET",
+    });
+  };
+
+  const { data } = state;
+  const { dataQuoteAuthor } = stateQuoteAuthor;
+  console.log(stateQuoteAuthor);
 
   return (
     <Container
@@ -34,7 +53,7 @@ const App = () => {
             "Error"
           ) : state.isSuccess ? (
             <CardGenerate
-              quote="“The first rule of any technology used in a business is that automation applied to an efficient operation will magnify the efficiency. The second is that automation applied to an inefficient operation will magnify the inefficiency.”"
+              quote={`“${data.data[0].quoteText}”`}
               icons={<BsTwitter />}
               icon={<BsInstagram />}
               styles={["", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "primary"]]}
@@ -53,8 +72,10 @@ const App = () => {
             <CardAuthor
               contentBtn={<BsFillForwardFill />}
               stylesBtn={["", "md", "primary"]}
-              contentCard={["Bill Gates", "Microsoft"]}
+              contentCard={[data.data[0].quoteAuthor, data.data[0].quoteGenre]}
               style={{ maxHeight: "10rem", maxWidth: "35rem", minWidth: "20rem" }}
+              event={nextQuoteRandom}
+              eventCard={searchQuoteAboutAuthor}
             />
           ) : null}
         </Col>

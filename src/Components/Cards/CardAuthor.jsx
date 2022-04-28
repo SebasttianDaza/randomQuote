@@ -7,9 +7,10 @@ import Col from "react-bootstrap/Col";
 import ErrorFallback from "../../Errors/HandleError";
 import ButtonNetwork from "../Buttons/ButtonNetwork";
 
-const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
+const CardAuthor = ({ contentBtn, stylesBtn, contentCard, event, eventCard, ...props }) => {
   const [classBtn, size, variant] = stylesBtn;
   const [title, subtitle] = contentCard;
+
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -17,7 +18,7 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
           <Card.Body>
             <Row>
               <Col>
-                <Card.Title>{title}</Card.Title>
+                <Card.Title onClick={() => eventCard(title)}>{title}</Card.Title>
                 <Card.Subtitle>{subtitle}</Card.Subtitle>
               </Col>
               <Col xs="3">
@@ -26,6 +27,7 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
                   content={contentBtn}
                   size={size}
                   variant={variant}
+                  event={event}
                 />
               </Col>
             </Row>
@@ -37,9 +39,11 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
 };
 
 CardAuthor.propTypes = {
-  contentBtn: PropTypes.string.isRequired,
+  contentBtn: PropTypes.object.isRequired,
   stylesBtn: PropTypes.arrayOf(PropTypes.string).isRequired,
   contentCard: PropTypes.arrayOf(PropTypes.string).isRequired,
+  event: PropTypes.func,
+  eventCard: PropTypes.func,
 };
 
 export default CardAuthor;
