@@ -13,42 +13,60 @@ import CardAuthor from "./Components/Cards/CardAuthor";
 const App = () => {
   const [state, fetchData] = useFetch();
   const [stateQuoteAuthor, fetchQuoteAuthor] = useFetch();
+  const [isPainting, setPainting] = useStateBasic(false);
+  const [colorRandom, setColorRandom] = useStateBasic("bg-light");
+  const [colorRandomSpinner, setColorRandomSpinner] = useStateBasic("primary");
 
   useEffect(() => {
     fetchData({
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
       method: "GET",
     });
-  }, [fetchData]);
+    setPainting(false);
+    setColorRandom(getRandomClassColor());
+    setColorRandomSpinner(getRandomClassColor());
+  }, [fetchData, setPainting, setColorRandom, setColorRandomSpinner]);
 
   const nextQuoteRandom = () => {
     fetchData({
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
       method: "GET",
     });
+    setPainting(false);
+    setColorRandom(getRandomClassColor());
+    setColorRandomSpinner(getRandomClassColor());
   };
 
-  const searchQuoteAboutAuthor = (author) => {
-    const authorClean = author.replace(/\s/g, "").toLowerCase();
-    fetchQuoteAuthor({
+  const getRandomClassColor = () => {
+    const color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
+    const random = Math.floor(Math.random() * 5);
+    return color[random];
+  };
+
+  const searchQuoteAboutAuthor = async (author) => {
+    await fetchQuoteAuthor({
       url: `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`,
       method: "GET",
     });
+    setPainting(true);
   };
 
   const { data } = state;
-  const { dataQuoteAuthor } = stateQuoteAuthor;
-  console.log(stateQuoteAuthor);
+  //Filtrar de posicion 1 a 3
 
   return (
     <Container
       fluid
-      className="bg-dark min-vh-100 d-flex flex-column justify-content-around align-items-center "
+      className={`bg-${colorRandom} min-vh-100 d-flex flex-column justify-content-around align-items-center `}
     >
       <Row>
         <Col>
           {state.isLoading ? (
-            <ComponentLoading variant="primary" content="Loading .." animation="border" />
+            <ComponentLoading
+              variant={colorRandomSpinner}
+              content="Loading .."
+              animation="border"
+            />
           ) : state.isError ? (
             "Error"
           ) : state.isSuccess ? (
@@ -60,12 +78,35 @@ const App = () => {
               style={{ maxWidth: "36rem" }}
             />
           ) : null}
+
+          {isPainting
+            ? stateQuoteAuthor.data.data.map((item, index) => {
+                return (
+                  <CardGenerate
+                    quote={`“${item.quoteText}”`}
+                    icons={<BsTwitter />}
+                    icon={<BsInstagram />}
+                    styles={[
+                      "mt-2 mb-2",
+                      "fs-4 fst-normal lh-base text-dark",
+                      ["mt-4", "md", "primary"],
+                    ]}
+                    style={{ maxWidth: "36rem" }}
+                    key={index}
+                  />
+                );
+              })
+            : null}
         </Col>
       </Row>
       <Row>
         <Col>
           {state.isLoading ? (
-            <ComponentLoading variant="primary" content="Loading .." animation="border" />
+            <ComponentLoading
+              variant={colorRandomSpinner}
+              content="Loading .."
+              animation="border"
+            />
           ) : state.isError ? (
             "Error"
           ) : state.isSuccess ? (
