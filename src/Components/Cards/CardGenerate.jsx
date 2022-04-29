@@ -11,7 +11,7 @@ import ButtonNetwork from "../Buttons/ButtonNetwork";
 const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
   const [classIcons, size, variant] = styleIcons;
-  const [firstIcons, secondIcons] = icons;
+  const [firstIcons, thirdIcons] = icons;
   const cardRef = useRef(null);
 
   return (
@@ -40,7 +40,7 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
                   params={
                     isShow
                       ? {
-                          ref: cardRef,
+                          ref: quote,
                           type: "twitter",
                         }
                       : null
@@ -50,7 +50,7 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
               <Col xs="2">
                 <ButtonNetwork
                   classGeneral={classIcons}
-                  content={secondIcons}
+                  content={thirdIcons}
                   size={size}
                   variant={variant}
                   event={eventBtn}
@@ -58,7 +58,7 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
                     isShow
                       ? {
                           ref: cardRef,
-                          type: "instagram",
+                          type: "download",
                         }
                       : null
                   }

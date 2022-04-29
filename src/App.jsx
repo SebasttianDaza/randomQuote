@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BsTwitter, BsFillForwardFill, BsInstagram } from "react-icons/bs";
+import { BsTwitter, BsFillForwardFill, BsLinkedin, BsDownload } from "react-icons/bs";
 import { useEffect } from "react";
 
 import useFetch from "./Hooks/useFetch";
@@ -11,6 +11,7 @@ import CardGenerate from "./Components/Cards/CardGenerate";
 import CardAuthor from "./Components/Cards/CardAuthor";
 import getRandomClassColor from "./Function/getRandomColor";
 import generateImage from "./Function/generateImage";
+import { generateTweetOrInstagram } from "./Function/generateImage";
 
 const App = () => {
   const [state, fetchData] = useFetch();
@@ -48,9 +49,14 @@ const App = () => {
     setPainting(true);
   };
 
-  const generateImageQuote = ({ ref, type }) => {
-    setParametre(true);
-    generateImage(ref.current, type);
+  const generateImageQuote = async ({ ref, type }) => {
+    await setParametre(true);
+    if (type === "download") {
+      generateImage(ref.current);
+    }
+    if (type === "twitter") {
+      generateTweetOrInstagram(ref);
+    }
   };
 
   const { data } = state;
@@ -73,7 +79,7 @@ const App = () => {
           ) : state.isSuccess ? (
             <CardGenerate
               quote={`“${data.data[0].quoteText}”`}
-              icons={[<BsTwitter key="twiiter" />, <BsInstagram key="instagram" />]}
+              icons={[<BsTwitter key="twiiter" />, <BsDownload key="download" />]}
               styles={[
                 `${isPainting ? "mt-3" : ""}`,
                 "fs-4 fst-normal lh-base text-dark",
@@ -98,7 +104,7 @@ const App = () => {
               return (
                 <CardGenerate
                   quote={`“${item.quoteText}”`}
-                  icons={[<BsTwitter key={index} />, <BsInstagram key={index} />]}
+                  icons={[<BsTwitter key={index} />, <BsDownload key={index} />]}
                   styles={[
                     "mt-2 mb-2",
                     "fs-4 fst-normal lh-base text-dark",
