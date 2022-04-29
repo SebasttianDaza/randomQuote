@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { ErrorBoundary } from "react-error-boundary";
+import { useRef } from "react";
 import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -18,7 +19,9 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, event, eventCard, ...p
           <Card.Body>
             <Row>
               <Col>
-                <Card.Title onClick={() => eventCard(title)}>{title}</Card.Title>
+                <Card.Title style={{ cursor: "pointer" }} onClick={() => eventCard(title)}>
+                  {title}
+                </Card.Title>
                 <Card.Subtitle>{subtitle}</Card.Subtitle>
               </Col>
               <Col xs="3">

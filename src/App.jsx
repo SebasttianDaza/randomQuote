@@ -9,6 +9,8 @@ import useStateBasic from "./Hooks/useStateBasic";
 import ComponentLoading from "./Components/Spinners/Spinner";
 import CardGenerate from "./Components/Cards/CardGenerate";
 import CardAuthor from "./Components/Cards/CardAuthor";
+import getRandomClassColor from "./Function/getRandomColor";
+import generateImage from "./Function/generateImage";
 
 const App = () => {
   const [state, fetchData] = useFetch();
@@ -16,6 +18,7 @@ const App = () => {
   const [isPainting, setPainting] = useStateBasic(false);
   const [colorRandom, setColorRandom] = useStateBasic("bg-light");
   const [colorRandomSpinner, setColorRandomSpinner] = useStateBasic("primary");
+  const [isParametre, setParametre] = useStateBasic(false);
 
   useEffect(() => {
     fetchData({
@@ -23,8 +26,8 @@ const App = () => {
       method: "GET",
     });
     setPainting(false);
-    setColorRandom(getRandomClassColor());
-    setColorRandomSpinner(getRandomClassColor());
+    setColorRandom(getRandomClassColor(color));
+    setColorRandomSpinner(getRandomClassColor(colorSecond));
   }, [fetchData, setPainting, setColorRandom, setColorRandomSpinner]);
 
   const nextQuoteRandom = () => {
@@ -33,14 +36,8 @@ const App = () => {
       method: "GET",
     });
     setPainting(false);
-    setColorRandom(getRandomClassColor());
-    setColorRandomSpinner(getRandomClassColor());
-  };
-
-  const getRandomClassColor = () => {
-    const color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
-    const random = Math.floor(Math.random() * 5);
-    return color[random];
+    setColorRandom(getRandomClassColor(color));
+    setColorRandomSpinner(getRandomClassColor(colorSecond));
   };
 
   const searchQuoteAboutAuthor = async (author) => {
@@ -51,8 +48,12 @@ const App = () => {
     setPainting(true);
   };
 
+  const generateImageQuote = ({ ref, type }) => {
+    setParametre(true);
+    generateImage(ref.current, type);
+  };
+
   const { data } = state;
-  //Filtrar de posicion 1 a 3
 
   return (
     <Container
@@ -72,31 +73,45 @@ const App = () => {
           ) : state.isSuccess ? (
             <CardGenerate
               quote={`“${data.data[0].quoteText}”`}
-              icons={<BsTwitter />}
-              icon={<BsInstagram />}
-              styles={["", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "primary"]]}
+              icons={[<BsTwitter key="twiiter" />, <BsInstagram key="instagram" />]}
+              styles={[
+                `${isPainting ? "mt-3" : ""}`,
+                "fs-4 fst-normal lh-base text-dark",
+                ["mt-4", "md", "primary"],
+              ]}
               style={{ maxWidth: "36rem" }}
+              isShow={isParametre}
+              eventBtn={generateImageQuote}
             />
           ) : null}
 
-          {isPainting
-            ? stateQuoteAuthor.data.data.map((item, index) => {
-                return (
-                  <CardGenerate
-                    quote={`“${item.quoteText}”`}
-                    icons={<BsTwitter />}
-                    icon={<BsInstagram />}
-                    styles={[
-                      "mt-2 mb-2",
-                      "fs-4 fst-normal lh-base text-dark",
-                      ["mt-4", "md", "primary"],
-                    ]}
-                    style={{ maxWidth: "36rem" }}
-                    key={index}
-                  />
-                );
-              })
-            : null}
+          {stateQuoteAuthor.isLoading ? (
+            <Container fluid className="d-flex justify-content-center">
+              <ComponentLoading
+                variant={colorRandomSpinner}
+                content="Loading .."
+                animation="border"
+              />
+            </Container>
+          ) : isPainting ? (
+            stateQuoteAuthor.data.data.map((item, index) => {
+              return (
+                <CardGenerate
+                  quote={`“${item.quoteText}”`}
+                  icons={[<BsTwitter key={index} />, <BsInstagram key={index} />]}
+                  styles={[
+                    "mt-2 mb-2",
+                    "fs-4 fst-normal lh-base text-dark",
+                    ["mt-4", "md", "primary"],
+                  ]}
+                  style={{ maxWidth: "36rem" }}
+                  isShow={isParametre}
+                  eventBtn={generateImageQuote}
+                  key={index}
+                />
+              );
+            })
+          ) : null}
         </Col>
       </Row>
       <Row>
@@ -117,6 +132,7 @@ const App = () => {
               style={{ maxHeight: "10rem", maxWidth: "35rem", minWidth: "20rem" }}
               event={nextQuoteRandom}
               eventCard={searchQuoteAboutAuthor}
+              className={isPainting ? "mb-3" : ""}
             />
           ) : null}
         </Col>
@@ -124,5 +140,9 @@ const App = () => {
     </Container>
   );
 };
+
+const color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
+
+const colorSecond = ["secondary", "success", "danger", "warning", "info", "light", "dark"];
 
 export default App;

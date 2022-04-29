@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import ErrorFallback from "../../Errors/HandleError";
 
-const ButtonNetwork = ({ content, size, variant, classGeneral, event }) => {
+const ButtonNetwork = ({ content, size, variant, classGeneral, event, params }) => {
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -12,7 +12,7 @@ const ButtonNetwork = ({ content, size, variant, classGeneral, event }) => {
           variant={variant}
           size={size}
           className={classGeneral}
-          onClick={() => event()}
+          onClick={() => event(params)}
           active
         >
           {content}
@@ -28,6 +28,7 @@ ButtonNetwork.propTypes = {
   variant: PropTypes.string.isRequired,
   classGeneral: PropTypes.string,
   event: PropTypes.func,
+  params: PropTypes.object,
 };
 
 export default ButtonNetwork;
