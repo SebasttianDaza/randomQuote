@@ -31,6 +31,7 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, event, eventCard, ...p
                   size={size}
                   variant={variant}
                   event={event}
+                  params={[false, null, null]}
                 />
               </Col>
             </Row>

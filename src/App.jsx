@@ -19,7 +19,6 @@ const App = () => {
   const [isPainting, setPainting] = useStateBasic(false);
   const [colorRandom, setColorRandom] = useStateBasic("bg-light");
   const [colorRandomSpinner, setColorRandomSpinner] = useStateBasic("primary");
-  const [isParametre, setParametre] = useStateBasic(false);
 
   useEffect(() => {
     fetchData({
@@ -36,6 +35,7 @@ const App = () => {
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
       method: "GET",
     });
+
     setPainting(false);
     setColorRandom(getRandomClassColor(color));
     setColorRandomSpinner(getRandomClassColor(colorSecond));
@@ -49,8 +49,7 @@ const App = () => {
     setPainting(true);
   };
 
-  const generateImageQuote = async ({ ref, type }) => {
-    await setParametre(true);
+  const generateImageQuote = ({ ref, type }) => {
     if (type === "download") {
       generateImage(ref.current);
     }
@@ -86,7 +85,7 @@ const App = () => {
                 ["mt-4", "md", "primary"],
               ]}
               style={{ maxWidth: "36rem" }}
-              isShow={isParametre}
+              isShow={true}
               eventBtn={generateImageQuote}
             />
           ) : null}
@@ -111,7 +110,7 @@ const App = () => {
                     ["mt-4", "md", "primary"],
                   ]}
                   style={{ maxWidth: "36rem" }}
-                  isShow={isParametre}
+                  isShow={true}
                   eventBtn={generateImageQuote}
                   key={index}
                 />
@@ -138,6 +137,7 @@ const App = () => {
               style={{ maxHeight: "10rem", maxWidth: "35rem", minWidth: "20rem" }}
               event={nextQuoteRandom}
               eventCard={searchQuoteAboutAuthor}
+              isShow={false}
               className={isPainting ? "mb-3" : ""}
             />
           ) : null}

@@ -5,6 +5,10 @@ import PropTypes from "prop-types";
 import ErrorFallback from "../../Errors/HandleError";
 
 const ButtonNetwork = ({ content, size, variant, classGeneral, event, params }) => {
+  const [isShow, cardRef, network] = params;
+  console.log(cardRef);
+  const paramsFunction = isShow ? { ref: cardRef, type: network } : null;
+
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -12,7 +16,7 @@ const ButtonNetwork = ({ content, size, variant, classGeneral, event, params }) 
           variant={variant}
           size={size}
           className={classGeneral}
-          onClick={() => event(params)}
+          onClick={() => event(paramsFunction)}
           active
         >
           {content}
@@ -28,7 +32,7 @@ ButtonNetwork.propTypes = {
   variant: PropTypes.string.isRequired,
   classGeneral: PropTypes.string,
   event: PropTypes.func,
-  params: PropTypes.object,
+  params: PropTypes.arrayOf(PropTypes.any),
 };
 
 export default ButtonNetwork;

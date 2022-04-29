@@ -12,7 +12,7 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
   const [classIcons, size, variant] = styleIcons;
   const [firstIcons, thirdIcons] = icons;
-  const cardRef = useRef(null);
+  const cardRef = useRef();
 
   return (
     <>
@@ -37,14 +37,7 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
                   size={size}
                   variant={variant}
                   event={eventBtn}
-                  params={
-                    isShow
-                      ? {
-                          ref: quote,
-                          type: "twitter",
-                        }
-                      : null
-                  }
+                  params={[isShow, quote, "twitter"]}
                 />
               </Col>
               <Col xs="2">
@@ -54,14 +47,7 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
                   size={size}
                   variant={variant}
                   event={eventBtn}
-                  params={
-                    isShow
-                      ? {
-                          ref: cardRef,
-                          type: "download",
-                        }
-                      : null
-                  }
+                  params={[isShow, cardRef, "download"]}
                 />
               </Col>
             </Row>
