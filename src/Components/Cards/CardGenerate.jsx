@@ -7,12 +7,23 @@ import Col from "react-bootstrap/Col";
 
 import ErrorFallback from "../../Errors/HandleError";
 import ButtonNetwork from "../Buttons/ButtonNetwork";
+import generateImage from "../../Function/generateImage";
+import { generateTweetOrInstagram } from "../../Function/generateImage";
 
-const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
+const CardGenerate = ({ quote, icons, styles, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
   const [classIcons, size, variant] = styleIcons;
   const [firstIcons, thirdIcons] = icons;
   const cardRef = useRef();
+
+  const handleClick = ({ ref, type }) => {
+    if (type === "download") {
+      generateImage(ref.current);
+    }
+    if (type === "twitter") {
+      generateTweetOrInstagram(ref);
+    }
+  };
 
   return (
     <>
@@ -36,8 +47,8 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
                   content={firstIcons}
                   size={size}
                   variant={variant}
-                  event={eventBtn}
-                  params={[isShow, quote, "twitter"]}
+                  event={handleClick}
+                  params={[true, quote, "twitter"]}
                 />
               </Col>
               <Col xs="2">
@@ -46,8 +57,8 @@ const CardGenerate = ({ quote, icons, styles, eventBtn, isShow, ...props }) => {
                   content={thirdIcons}
                   size={size}
                   variant={variant}
-                  event={eventBtn}
-                  params={[isShow, cardRef, "download"]}
+                  event={handleClick}
+                  params={[true, cardRef, "download"]}
                 />
               </Col>
             </Row>
@@ -62,8 +73,6 @@ CardGenerate.propTypes = {
   quote: PropTypes.string.isRequired,
   icons: PropTypes.arrayOf(PropTypes.object).isRequired,
   styles: PropTypes.array,
-  eventBtn: PropTypes.func,
-  isShow: PropTypes.bool,
 };
 
 export default CardGenerate;

@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BsTwitter, BsFillForwardFill, BsLinkedin, BsDownload } from "react-icons/bs";
+import { BsTwitter, BsFillForwardFill, BsDownload } from "react-icons/bs";
 import { useEffect } from "react";
 
 import useFetch from "./Hooks/useFetch";
@@ -10,8 +10,7 @@ import ComponentLoading from "./Components/Spinners/Spinner";
 import CardGenerate from "./Components/Cards/CardGenerate";
 import CardAuthor from "./Components/Cards/CardAuthor";
 import getRandomClassColor from "./Function/getRandomColor";
-import generateImage from "./Function/generateImage";
-import { generateTweetOrInstagram } from "./Function/generateImage";
+import GenerateCards from "./Components/Cards/generateCards";
 
 const App = () => {
   const [state, fetchData] = useFetch();
@@ -49,15 +48,6 @@ const App = () => {
     setPainting(true);
   };
 
-  const generateImageQuote = ({ ref, type }) => {
-    if (type === "download") {
-      generateImage(ref.current);
-    }
-    if (type === "twitter") {
-      generateTweetOrInstagram(ref);
-    }
-  };
-
   const { data } = state;
 
   return (
@@ -85,38 +75,14 @@ const App = () => {
                 ["mt-4", "md", "primary"],
               ]}
               style={{ maxWidth: "36rem" }}
-              isShow={true}
-              eventBtn={generateImageQuote}
             />
           ) : null}
 
-          {stateQuoteAuthor.isLoading ? (
-            <Container fluid className="d-flex justify-content-center">
-              <ComponentLoading
-                variant={colorRandomSpinner}
-                content="Loading .."
-                animation="border"
-              />
-            </Container>
-          ) : isPainting ? (
-            stateQuoteAuthor.data.data.map((item, index) => {
-              return (
-                <CardGenerate
-                  quote={`“${item.quoteText}”`}
-                  icons={[<BsTwitter key={index} />, <BsDownload key={index} />]}
-                  styles={[
-                    "mt-2 mb-2",
-                    "fs-4 fst-normal lh-base text-dark",
-                    ["mt-4", "md", "primary"],
-                  ]}
-                  style={{ maxWidth: "36rem" }}
-                  isShow={true}
-                  eventBtn={generateImageQuote}
-                  key={index}
-                />
-              );
-            })
-          ) : null}
+          <GenerateCards
+            colorRandomSpinner={colorRandomSpinner}
+            stateQuoteAuthor={stateQuoteAuthor}
+            isPainting={isPainting}
+          />
         </Col>
       </Row>
       <Row>
@@ -137,7 +103,6 @@ const App = () => {
               style={{ maxHeight: "10rem", maxWidth: "35rem", minWidth: "20rem" }}
               event={nextQuoteRandom}
               eventCard={searchQuoteAboutAuthor}
-              isShow={false}
               className={isPainting ? "mb-3" : ""}
             />
           ) : null}

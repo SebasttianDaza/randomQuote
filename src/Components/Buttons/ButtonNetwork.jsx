@@ -6,7 +6,6 @@ import ErrorFallback from "../../Errors/HandleError";
 
 const ButtonNetwork = ({ content, size, variant, classGeneral, event, params }) => {
   const [isShow, cardRef, network] = params;
-  console.log(cardRef);
   const paramsFunction = isShow ? { ref: cardRef, type: network } : null;
 
   return (

@@ -32,6 +32,7 @@ module.exports = {
         endOfLine: "auto",
       },
     ],
+    "no-unused-vars": ["error", { vars: "all", args: "after-used", ignoreRestSiblings: false }],
     "import/order": ["warn", { "newlines-between": "always" }],
     "react/self-closing-comp": "warn",
   },
