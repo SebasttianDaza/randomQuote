@@ -2,13 +2,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BsTwitter, BsFillForwardFill, BsDownload } from "react-icons/bs";
-import { BiError } from "react-icons/bi";
 import { useEffect } from "react";
 
 import useFetch from "./Hooks/useFetch";
 import useStateBasic from "./Hooks/useStateBasic";
+import Home from "./Components/Home";
 import RenderConditional from "./Components/RenderConditional/renderConditonal";
-import ComponentLoading from "./Components/Spinners/Spinner";
 import CardGenerate from "./Components/Cards/CardGenerate";
 import CardAuthor from "./Components/Cards/CardAuthor";
 import getRandomClassColor from "./Function/getRandomColor";
@@ -49,8 +48,6 @@ const App = () => {
     setPainting(true);
   };
 
-  console.log(state);
-
   const { data } = state;
 
   return (
@@ -61,35 +58,16 @@ const App = () => {
     >
       <Row>
         <Col>
-          {state.isLoading ? (
-            <ComponentLoading
-              variant={colorRandomSpinner}
-              content="Loading .."
-              animation="border"
-            />
-          ) : state.isError ? (
-            <CardGenerate
-              quote={`“We've had a error, You go back more late ${state.error.message}r ”`}
-              icons={[<BiError key="error1" />, <BiError key="error2" />]}
-              styles={["bg-danger", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "dark"]]}
-              style={{ maxWidth: "36rem", width: "80vw" }}
-            />
-          ) : state.isSuccess ? (
-            <CardGenerate
-              quote={`“${data.data[0].quoteText}”`}
-              icons={[<BsTwitter key="twiiter" />, <BsDownload key="download" />]}
-              styles={[
-                `${isPainting ? "mt-3" : ""}`,
-                "fs-4 fst-normal lh-base text-dark",
-                ["mt-4", "md", "primary"],
-              ]}
-              style={{ maxWidth: "36rem" }}
-            />
-          ) : null}
-
+          <Home
+            data={data}
+            colorRandom={colorRandomSpinner}
+            state={state}
+            isPainting={isPainting}
+          />
           <RenderConditional
             state={stateQuoteAuthor}
             colorRandom={colorRandomSpinner}
+            isShowLoading={true}
             renderSucess={
               isPainting
                 ? stateQuoteAuthor.data.data.map((item, index) => {
@@ -102,7 +80,10 @@ const App = () => {
                           "fs-4 fst-normal lh-base text-dark",
                           ["mt-4", "md", "primary"],
                         ]}
-                        style={{ maxWidth: "36rem", transition: "all 1s ease-in-out" }}
+                        style={{
+                          maxWidth: "36rem",
+                          transition: "all 1s ease-in-out",
+                        }}
                         key={index}
                       />
                     );
@@ -117,6 +98,7 @@ const App = () => {
           <RenderConditional
             state={state}
             colorRandom={colorRandomSpinner}
+            isShowLoading={false}
             renderSucess={
               state.isSuccess ? (
                 <CardAuthor
