@@ -34,7 +34,7 @@
 
 ![screenshot](/public/assest/image/imageRbdomQuo.png)
 
-Website developed with ReactJS, React-Boostrap, Bootstrap, I've allow me to learn more about Components resuables and usefull. Also, of course I've been more easy with the components what it offers for default, but also I've customised it to my needs with SASS and CSS.
+Website developed with ReactJS, React-Boostrap, Bootstrap, and that does request a API to get a random quote, also it can download a image with quote. I've allowed to learn more about how handle the API, a component loading, and a component error.
 
 ### Built With
 
@@ -47,7 +47,8 @@ Website developed with ReactJS, React-Boostrap, Bootstrap, I've allow me to lear
 - [Vite](https://vitejs.dev/)
 - [React-Bootstrap](https://react-bootstrap.github.io/)
 - [Bootstrap](https://getbootstrap.com/)
-- [SASS](https://sass-lang.com/)
+- [API Quote Garden](https://pprathameshmore.github.io/QuoteGarden/)
+- [html2canvas](https://html2canvas.hertzen.com/)
 
 
 ## How To Use

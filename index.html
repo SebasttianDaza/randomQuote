@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
     <link rel="icon" type="image/svg+xml" href="/assest/image/randomQuote-min.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Quote</title>
@@ -13,6 +13,9 @@
     <style>
       body {
         font-family: 'Raleway', sans-serif !important;
+      }
+      ::-webkit-scrollbar {
+        display: none !important;
       }
     </style>
   </head>

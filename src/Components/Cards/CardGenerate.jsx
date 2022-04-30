@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import ErrorFallback from "../../Errors/HandleError";
 import ButtonNetwork from "../Buttons/ButtonNetwork";
 import generateImage from "../../Function/generateImage";
-import { generateTweetOrInstagram } from "../../Function/generateImage";
+import generateTweet from "../../Function/shareTwitter";
 
 const CardGenerate = ({ quote, icons, styles, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
@@ -21,7 +21,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
       generateImage(ref.current);
     }
     if (type === "twitter") {
-      generateTweetOrInstagram(ref);
+      generateTweet(ref);
     }
   };
 
