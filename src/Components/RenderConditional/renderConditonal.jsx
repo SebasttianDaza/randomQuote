@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import { BiError } from "react-icons/bi";
 import Container from "react-bootstrap/Container";
 
-import ComponentLoading from "../Spinners/Spinner";
-import CardGenerate from "../Cards/CardGenerate";
+import { ComponentLoading, CardGenerate } from "@Components";
 
 const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) => {
   const showLoading = (isShow) => {

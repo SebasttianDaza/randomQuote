@@ -2,15 +2,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BsTwitter, BsFillForwardFill, BsDownload } from "react-icons/bs";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
-import useFetch from "./Hooks/useFetch";
-import useStateBasic from "./Hooks/useStateBasic";
-import Home from "./Components/Home";
-import RenderConditional from "./Components/RenderConditional/renderConditonal";
-import CardGenerate from "./Components/Cards/CardGenerate";
-import CardAuthor from "./Components/Cards/CardAuthor";
-import getRandomClassColor from "./Function/getRandomColor";
+import { useFetch, useStateBasic } from "@Hooks";
+import { RenderConditional, CardGenerate, CardAuthor } from "@Components";
+import { getRandomClassColor } from "@Function";
+import { Home } from "@pages"
 
 const App = () => {
   const [state, fetchData] = useFetch();

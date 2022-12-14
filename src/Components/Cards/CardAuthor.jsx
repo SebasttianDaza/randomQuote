@@ -4,10 +4,18 @@ import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import ErrorFallback from "../../Errors/HandleError";
-import ButtonNetwork from "../Buttons/ButtonNetwork";
+import { ErrorFallback } from "@Errors";
+import { ButtonNetwork } from "@Components";
 
-const CardAuthor = ({ contentBtn, stylesBtn, contentCard, event, eventCard, ...props }) => {
+
+const CardAuthor = ({
+  contentBtn,
+  stylesBtn,
+  contentCard,
+  event,
+  eventCard,
+  ...props
+}) => {
   const [classBtn, size, variant] = stylesBtn;
   const [title, subtitle] = contentCard;
 
@@ -18,7 +26,10 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, event, eventCard, ...p
           <Card.Body>
             <Row>
               <Col>
-                <Card.Title style={{ cursor: "pointer" }} onClick={() => eventCard(title)}>
+                <Card.Title
+                  style={{ cursor: "pointer" }}
+                  onClick={() => eventCard(title)}
+                >
                   {title}
                 </Card.Title>
                 <Card.Subtitle>{subtitle}</Card.Subtitle>
