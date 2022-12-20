@@ -6,8 +6,8 @@ import { useEffect, useCallback } from "react";
 
 import { useFetch, useStateBasic } from "@Hooks";
 import { RenderConditional, CardGenerate, CardAuthor } from "@Components";
-import { getRandomClassColor } from "@Function";
-import { Home } from "@pages"
+import { getRandomColor } from "@Services";
+import { Home } from "@pages";
 
 const App = () => {
   const [state, fetchData] = useFetch();
@@ -22,8 +22,8 @@ const App = () => {
       method: "GET",
     });
     setPainting(false);
-    setColorRandom(getRandomClassColor(color));
-    setColorRandomSpinner(getRandomClassColor(colorSecond));
+    setColorRandom(getRandomColor(color));
+    setColorRandomSpinner(getRandomColor(colorSecond));
   }, [fetchData, setPainting, setColorRandom, setColorRandomSpinner]);
 
   const nextQuoteRandom = () => {
@@ -33,8 +33,8 @@ const App = () => {
     });
 
     setPainting(false);
-    setColorRandom(getRandomClassColor(color));
-    setColorRandomSpinner(getRandomClassColor(colorSecond));
+    setColorRandom(getRandomColor(color));
+    setColorRandomSpinner(getRandomColor(colorSecond));
   };
 
   const searchQuoteAboutAuthor = async (author) => {
@@ -71,7 +71,10 @@ const App = () => {
                     return (
                       <CardGenerate
                         quote={`“${item.quoteText}”`}
-                        icons={[<BsTwitter key={index} />, <BsDownload key={index} />]}
+                        icons={[
+                          <BsTwitter key={index} />,
+                          <BsDownload key={index} />,
+                        ]}
                         styles={[
                           "mt-2 mb-2",
                           "fs-4 fst-normal lh-base text-dark",
@@ -101,7 +104,10 @@ const App = () => {
                 <CardAuthor
                   contentBtn={<BsFillForwardFill />}
                   stylesBtn={["", "md", "primary"]}
-                  contentCard={[data.data[0].quoteAuthor, data.data[0].quoteGenre]}
+                  contentCard={[
+                    data.data[0].quoteAuthor,
+                    data.data[0].quoteGenre,
+                  ]}
                   style={{
                     maxHeight: "10rem",
                     maxWidth: "35rem",
@@ -120,8 +126,25 @@ const App = () => {
   );
 };
 
-const color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
+const color = [
+  "primary",
+  "secondary",
+  "success",
+  "danger",
+  "warning",
+  "info",
+  "light",
+  "dark",
+];
 
-const colorSecond = ["secondary", "success", "danger", "warning", "info", "light", "dark"];
+const colorSecond = [
+  "secondary",
+  "success",
+  "danger",
+  "warning",
+  "info",
+  "light",
+  "dark",
+];
 
 export default App;

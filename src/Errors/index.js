@@ -1,1 +1,1 @@
-export { default as HandleError } from './HandleError';
+export { default as ErrorFallback } from "./HandleError";

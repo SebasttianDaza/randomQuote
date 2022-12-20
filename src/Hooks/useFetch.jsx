@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
-
-import sendRequest from "../APIs/sendRequest";
+import { sendRequest } from "@Services";
 
 const useFetch = () => {
   const [fetchState, setFetchState] = useState({

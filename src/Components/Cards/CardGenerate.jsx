@@ -1,14 +1,12 @@
-import Card from "react-bootstrap/Card";
 import { ErrorBoundary } from "react-error-boundary";
 import { useRef } from "react";
 import PropTypes from "prop-types";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
-import ErrorFallback from "../../Errors/HandleError";
-import ButtonNetwork from "../Buttons/ButtonNetwork";
-import generateImage from "../../Function/generateImage";
-import generateTweet from "../../Function/shareTwitter";
+import { Card, Row, Col } from "react-bootstrap";
+
+import { ErrorFallback } from "@Errors";
+import { ButtonNetwork } from "@Components";
+import { getImage, getTweet } from "@Services";
 
 const CardGenerate = ({ quote, icons, styles, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
@@ -18,10 +16,10 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
 
   const handleClick = ({ ref, type }) => {
     if (type === "download") {
-      generateImage(ref.current);
+      getImage(ref.current);
     }
     if (type === "twitter") {
-      generateTweet(ref);
+      getTweet(ref);
     }
   };
 

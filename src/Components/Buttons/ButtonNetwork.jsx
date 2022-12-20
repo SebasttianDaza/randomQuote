@@ -2,9 +2,16 @@ import Button from "react-bootstrap/Button";
 import { ErrorBoundary } from "react-error-boundary";
 import PropTypes from "prop-types";
 
-import ErrorFallback from "../../Errors/HandleError";
+import { ErrorFallback } from "@Errors";
 
-const ButtonNetwork = ({ content, size, variant, classGeneral, event, params }) => {
+const ButtonNetwork = ({
+  content,
+  size,
+  variant,
+  classGeneral,
+  event,
+  params,
+}) => {
   const [isShow, cardRef, network] = params;
   const paramsFunction = isShow ? { ref: cardRef, type: network } : null;
 

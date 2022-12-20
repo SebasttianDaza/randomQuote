@@ -1,12 +1,9 @@
-import Card from "react-bootstrap/Card";
 import { ErrorBoundary } from "react-error-boundary";
 import PropTypes from "prop-types";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Card, Row, Col } from "react-bootstrap";
 
 import { ErrorFallback } from "@Errors";
 import { ButtonNetwork } from "@Components";
-
 
 const CardAuthor = ({
   contentBtn,

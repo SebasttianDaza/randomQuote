@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 
-const generateImage = async (element) => {
+const getImage = async (element) => {
   const canvas = await html2canvas(element),
     image = canvas.toDataURL("image/png"),
     link = document.createElement("a");
@@ -10,4 +10,4 @@ const generateImage = async (element) => {
   link.click();
 };
 
-export default generateImage;
+export default getImage;
