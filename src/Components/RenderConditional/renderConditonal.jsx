@@ -2,18 +2,18 @@ import PropTypes from "prop-types";
 import { BiError } from "react-icons/bi";
 import Container from "react-bootstrap/Container";
 
-import { ComponentLoading, CardGenerate } from "@Components";
+import { Loading, CardGenerate } from "@Components";
 
 const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) => {
   const showLoading = (isShow) => {
     if (isShow) {
       return (
         <Container fluid className="d-flex justify-content-center">
-          <ComponentLoading variant={colorRandom} content="Loading .." animation="border" />
+          <Loading variant={colorRandom} content="Loading .." animation="border" />
         </Container>
       );
     } else {
-      return <ComponentLoading variant={colorRandom} content="Loading .." animation="border" />;
+      return <Loading variant={colorRandom} content="Loading .." animation="border" />;
     }
   };
   return (

@@ -1,7 +1,7 @@
 import Spinner from "react-bootstrap/Spinner";
 import PropTypes from "prop-types";
 
-const ComponentLoading = ({ variant, content, animation }) => {
+const Loading = ({ variant, content, animation }) => {
   return (
     <Spinner animation={animation} role="status" variant={variant}>
       <span className="visually-hidden">{content}</span>
@@ -9,10 +9,10 @@ const ComponentLoading = ({ variant, content, animation }) => {
   );
 };
 
-ComponentLoading.propTypes = {
+Loading.propTypes = {
   variant: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   animation: PropTypes.string.isRequired,
 };
 
-export default ComponentLoading;
+export default Loading;

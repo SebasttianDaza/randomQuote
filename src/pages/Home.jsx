@@ -2,13 +2,13 @@ import { BsTwitter, BsDownload } from "react-icons/bs";
 import { BiError } from "react-icons/bi";
 import PropTypes from "prop-types";
 
-import { ComponentLoading, CardGenerate } from "@Components";
+import { Loading, CardGenerate } from "@Components";
 
 const Home = ({ data, colorRandom, state, isPainting }) => {
   return (
     <>
       {state.isLoading ? (
-        <ComponentLoading
+        <Loading
           variant={colorRandom}
           content="Loading .."
           animation="border"

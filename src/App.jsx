@@ -1,10 +1,8 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { BsTwitter, BsFillForwardFill, BsDownload } from "react-icons/bs";
 import { useEffect, useCallback } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { BsTwitter, BsFillForwardFill, BsDownload } from "react-icons/bs";
 
-import { useFetch, useStateBasic } from "@Hooks";
+import { useFetch, useQuoteRandom } from "@Hooks";
 import { RenderConditional, CardGenerate, CardAuthor } from "@Components";
 import { getRandomColor } from "@Services";
 import { Home } from "@pages";
@@ -12,58 +10,66 @@ import { Home } from "@pages";
 const App = () => {
   const [state, fetchData] = useFetch();
   const [stateQuoteAuthor, fetchQuoteAuthor] = useFetch();
-  const [isPainting, setPainting] = useStateBasic(false);
-  const [colorRandom, setColorRandom] = useStateBasic("bg-light");
-  const [colorRandomSpinner, setColorRandomSpinner] = useStateBasic("primary");
+  const {
+    isPainting,
+    isColorRandom,
+    isColorRandomSpinner,
+    updatePainting,
+    updateColorRandom,
+    updateColorRandomSpinner,
+  } = useQuoteRandom();
 
   useEffect(() => {
     fetchData({
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
       method: "GET",
     });
-    setPainting(false);
-    setColorRandom(getRandomColor(color));
-    setColorRandomSpinner(getRandomColor(colorSecond));
-  }, [fetchData, setPainting, setColorRandom, setColorRandomSpinner]);
+    updatePainting(false);
+    updateColorRandom(getRandomColor(color));
+    updateColorRandomSpinner(getRandomColor(colorSecond));
+  }, [fetchData, updatePainting, updateColorRandom, updateColorRandomSpinner]);
 
-  const nextQuoteRandom = () => {
+  const nextQuoteRandom = useCallback(() => {
     fetchData({
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
       method: "GET",
     });
 
-    setPainting(false);
-    setColorRandom(getRandomColor(color));
-    setColorRandomSpinner(getRandomColor(colorSecond));
-  };
+    updatePainting(false);
+    updateColorRandom(getRandomColor(color));
+    updateColorRandomSpinner(getRandomColor(colorSecond));
+  }, [fetchData, updatePainting, updateColorRandom, updateColorRandomSpinner]);
 
-  const searchQuoteAboutAuthor = async (author) => {
-    await fetchQuoteAuthor({
-      url: `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`,
-      method: "GET",
-    });
-    setPainting(true);
-  };
+  const searchQuoteAboutAuthor = useCallback(
+    async (author) => {
+      await fetchQuoteAuthor({
+        url: `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`,
+        method: "GET",
+      });
+      updatePainting(true);
+    },
+    [fetchQuoteAuthor, updatePainting]
+  );
 
   const { data } = state;
 
   return (
     <Container
       fluid
-      className={`bg-${colorRandom} min-vh-100 d-flex flex-column justify-content-around align-items-center `}
+      className={`bg-${isColorRandom} min-vh-100 d-flex flex-column justify-content-around align-items-center `}
       style={{ transition: "all 1s ease-in-out" }}
     >
       <Row>
         <Col>
           <Home
             data={data}
-            colorRandom={colorRandomSpinner}
+            colorRandom={isColorRandomSpinner}
             state={state}
             isPainting={isPainting}
           />
           <RenderConditional
             state={stateQuoteAuthor}
-            colorRandom={colorRandomSpinner}
+            colorRandom={isColorRandomSpinner}
             isShowLoading={true}
             renderSucess={
               isPainting
@@ -97,7 +103,7 @@ const App = () => {
         <Col>
           <RenderConditional
             state={state}
-            colorRandom={colorRandomSpinner}
+            colorRandom={isColorRandomSpinner}
             isShowLoading={false}
             renderSucess={
               state.isSuccess ? (
