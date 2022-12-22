@@ -15,7 +15,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "prettier", "import"],
+  plugins: ["react", "prettier", "import", "react-hooks"],
   rules: {
     "no-console": "off",
     "react/react-in-jsx-scope": 0,
@@ -32,8 +32,13 @@ module.exports = {
         endOfLine: "auto",
       },
     ],
-    "no-unused-vars": ["error", { vars: "all", args: "after-used", ignoreRestSiblings: false }],
+    "no-unused-vars": [
+      "error",
+      { vars: "all", args: "after-used", ignoreRestSiblings: false },
+    ],
     "import/order": ["warn", { "newlines-between": "always" }],
     "react/self-closing-comp": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };
