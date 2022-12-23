@@ -4,18 +4,18 @@ import PropTypes from "prop-types";
 
 import { Loading, CardGenerate } from "@Components";
 
-const Home = ({ data, colorRandom, state, isPainting }) => {
+const Home = ({ isData, colorRandom, isState, isPainting }) => {
   return (
     <>
-      {state.isLoading ? (
+      {isState.isLoading ? (
         <Loading
           variant={colorRandom}
           content="Loading .."
           animation="border"
         />
-      ) : state.isError ? (
+      ) : isState.isError ? (
         <CardGenerate
-          quote={`“We've had a error, You go back more late ${state.error.message}r ”`}
+          quote={`“We've had a error, You go back more late ${isState.error.message}r ”`}
           icons={[<BiError key="error1" />, <BiError key="error2" />]}
           styles={[
             "bg-danger",
@@ -24,9 +24,9 @@ const Home = ({ data, colorRandom, state, isPainting }) => {
           ]}
           style={{ maxWidth: "36rem", width: "80vw" }}
         />
-      ) : state.isSuccess ? (
+      ) : isState.isSuccess ? (
         <CardGenerate
-          quote={`“${data.data[0].quoteText}”`}
+          quote={`“${isData.content}”`}
           icons={[<BsTwitter key="twiiter" />, <BsDownload key="download" />]}
           styles={[
             `${isPainting ? "mt-3" : ""}`,
@@ -41,9 +41,9 @@ const Home = ({ data, colorRandom, state, isPainting }) => {
 };
 
 Home.propTypes = {
-  data: PropTypes.object,
+  isData: PropTypes.object,
   colorRandom: PropTypes.string,
-  state: PropTypes.object,
+  isState: PropTypes.object,
   isPainting: PropTypes.bool,
 };
 

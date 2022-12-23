@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { BiError } from "react-icons/bi";
 import Container from "react-bootstrap/Container";
-
+import { ErrorBoundary } from "react-error-boundary";
 import { Loading, CardGenerate } from "@Components";
+import { ErrorFallback } from "@Errors";
 
 const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) => {
   const showLoading = (isShow) => {
@@ -18,7 +19,8 @@ const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) 
   };
   return (
     <>
-      {state.isLoading ? (
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        {state.isLoading ? (
         showLoading(isShowLoading)
       ) : state.isError ? (
         <CardGenerate
@@ -30,6 +32,7 @@ const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) 
       ) : state.isSuccess ? (
         renderSucess
       ) : null}
+      </ErrorBoundary>
     </>
   );
 };

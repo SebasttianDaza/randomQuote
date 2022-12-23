@@ -20,37 +20,39 @@ const App = () => {
   } = useQuoteRandom();
 
   useEffect(() => {
+    // Do request
     fetchData({
-      url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
+      url: "https://api.quotable.io/random",
       method: "GET",
     });
     updatePainting(false);
-    updateColorRandom(getRandomColor(color));
-    updateColorRandomSpinner(getRandomColor(colorSecond));
+    updateColorRandom(getRandomColor(false));
+    updateColorRandomSpinner(getRandomColor(true));
   }, [fetchData, updatePainting, updateColorRandom, updateColorRandomSpinner]);
-
+  
   const nextQuoteRandom = useCallback(() => {
-    fetchData({
+    /*fetchData({
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
       method: "GET",
     });
 
     updatePainting(false);
-    updateColorRandom(getRandomColor(color));
-    updateColorRandomSpinner(getRandomColor(colorSecond));
+    updateColorRandom(getRandomColor(false));
+    updateColorRandomSpinner(getRandomColor(true));*/
   }, [fetchData, updatePainting, updateColorRandom, updateColorRandomSpinner]);
 
   const searchQuoteAboutAuthor = useCallback(
     async (author) => {
-      await fetchQuoteAuthor({
+      /*await fetchQuoteAuthor({
         url: `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`,
         method: "GET",
       });
-      updatePainting(true);
+      updatePainting(true);*/
     },
     [fetchQuoteAuthor, updatePainting]
   );
 
+  console.log(state);
   const { data } = state;
 
   return (
@@ -62,9 +64,9 @@ const App = () => {
       <Row>
         <Col>
           <Home
-            data={data}
+            isData={data}
             colorRandom={isColorRandomSpinner}
-            state={state}
+            isState={state}
             isPainting={isPainting}
           />
           <RenderConditional
@@ -111,8 +113,8 @@ const App = () => {
                   contentBtn={<BsFillForwardFill />}
                   stylesBtn={["", "md", "primary"]}
                   contentCard={[
-                    data.data[0].quoteAuthor,
-                    data.data[0].quoteGenre,
+                    data.author,
+                    data.content,
                   ]}
                   style={{
                     maxHeight: "10rem",
@@ -131,26 +133,5 @@ const App = () => {
     </Container>
   );
 };
-
-const color = [
-  "primary",
-  "secondary",
-  "success",
-  "danger",
-  "warning",
-  "info",
-  "light",
-  "dark",
-];
-
-const colorSecond = [
-  "secondary",
-  "success",
-  "danger",
-  "warning",
-  "info",
-  "light",
-  "dark",
-];
 
 export default App;

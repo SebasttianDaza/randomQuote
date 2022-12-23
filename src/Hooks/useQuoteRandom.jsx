@@ -1,11 +1,13 @@
 import { useReducer, useCallback } from "react";
 
+// Actions
 const ACTIONS = {
   UPDATE_PAINTING: "update_painting",
   UPDATE_COLOR_RANDOM: "update_color_random",
   UPDATE_COLOR_RANDOM_SPINNER: "update_color_random_spinner",
 };
 
+// Reducer
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.UPDATE_PAINTING:
@@ -20,14 +22,17 @@ const reducer = (state, action) => {
 };
 
 const useQuoteRandom = () => {
+  // State with useReducer
   const [state, dispatch] = useReducer(reducer, {
     isPainting: false,
     isColorRandom: "bg-light",
     isColorRandomSpinner: "primary",
   });
 
+  // Get state from reducer
   const { isPainting, isColorRandom, isColorRandomSpinner } = state;
 
+  // Return state with function to set state
   return {
     isPainting,
     isColorRandom,
