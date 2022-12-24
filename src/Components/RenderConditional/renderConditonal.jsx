@@ -4,9 +4,11 @@ import Container from "react-bootstrap/Container";
 import { ErrorBoundary } from "react-error-boundary";
 import { Loading, CardGenerate } from "@Components";
 import { ErrorFallback } from "@Errors";
+import { useCallback } from 'react';
 
 const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) => {
-  const showLoading = (isShow) => {
+
+  const showLoading = useCallback((isShow) => {
     if (isShow) {
       return (
         <Container fluid className="d-flex justify-content-center">
@@ -16,7 +18,8 @@ const RenderConditional = ({ state, colorRandom, renderSucess, isShowLoading }) 
     } else {
       return <Loading variant={colorRandom} content="Loading .." animation="border" />;
     }
-  };
+  }, [colorRandom]);
+
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
