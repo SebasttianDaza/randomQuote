@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { BsTwitter, BsFillForwardFill, BsDownload } from "react-icons/bs";
+import { BsTwitter, BsDownload } from "react-icons/bs";
 
-import { useFetch, useQuoteRandom } from "@Hooks";
-import { ContextQuoteRandomProvider } from "@Context";
+import { useFetch } from "@Hooks";
+import { ContextQuote, ContextQuoteProvider } from "@Context";
 import { RenderConditional, CardGenerate, SearchAuthor } from "@Components";
 import { getRandomColor } from "@Services";
 import { Home } from "@pages";
@@ -11,16 +11,17 @@ import { Home } from "@pages";
 const App = () => {
   const [state, fetchData] = useFetch();
   const [stateQuoteAuthor, fetchQuoteAuthor] = useFetch();
-  const {
+
+  /*const {
     isPainting,
     isColorRandom,
     isColorRandomSpinner,
     updatePainting,
     updateColorRandom,
     updateColorRandomSpinner,
-  } = useQuoteRandom();
+  } = useContext(ContextQuote);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Do request
     fetchData({
       url: "https://api.quotable.io/random",
@@ -31,29 +32,19 @@ const App = () => {
     updateColorRandomSpinner(getRandomColor(true));
   }, [fetchData, updatePainting, updateColorRandom, updateColorRandomSpinner]);
 
-  console.log(state);
   const { data } = state;
-
+  */
   return (
     <>
-      <ContextQuoteRandomProvider
-        value={{
-          isPainting,
-          isColorRandom,
-          isColorRandomSpinner,
-          updatePainting,
-          updateColorRandom,
-          updateColorRandomSpinner,
-        }}
-      >
+      <ContextQuoteProvider>
         <Container
           fluid
-          className={`bg-${isColorRandom} min-vh-100 d-flex flex-column justify-content-around align-items-center `}
+          className={`bg min-vh-100 d-flex flex-column justify-content-around align-items-center `}
           style={{ transition: "all 1s ease-in-out" }}
         >
           <Row>
             <Col>
-              <Home
+              {/* <Home
                 isData={data}
                 colorRandom={isColorRandomSpinner}
                 isState={state}
@@ -88,7 +79,7 @@ const App = () => {
                       })
                     : null
                 }
-              />
+              /> */}
             </Col>
           </Row>
           <Row>
@@ -97,7 +88,7 @@ const App = () => {
             </Col>
           </Row>
         </Container>
-      </ContextQuoteRandomProvider>
+      </ContextQuoteProvider>
     </>
   );
 };

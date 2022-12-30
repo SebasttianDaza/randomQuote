@@ -47,7 +47,7 @@ const useQuoteRandom = () => {
           type: ACTIONS.UPDATE_COLOR_RANDOM,
           payload,
         }),
-      dispatch
+      [dispatch]
     ),
     updateColorRandomSpinner: useCallback(
       (payload) =>
@@ -55,7 +55,7 @@ const useQuoteRandom = () => {
           type: ACTIONS.UPDATE_COLOR_RANDOM_SPINNER,
           payload,
         }),
-      dispatch
+      [dispatch]
     ),
   };
 };

@@ -1,13 +1,20 @@
 import { useCallback, useContext } from "react";
 import { RenderConditional, CardAuthor } from "@Components";
-import { ContextQuoteRandom } from "@Context";
+import { ContextQuote } from "@Context";
 import { useFetch } from "@Hooks";
+import { BsFillForwardFill } from "react-icons/bs";
 
 const SearchAuthor = ({ author }) => {
   const [state, fetchData] = useFetch();
-  const { updatePainting, updateColorRandom, updateColorRandomSpinner } =
-    useContext(ContextQuoteRandom);
-
+  console.log(useContext(ContextQuote));
+  /*const {
+    isPainting,
+    isColorRandomSpinner,
+    updatePainting,
+    updateColorRandom,
+    updateColorRandomSpinner,
+  } = useContext(ContextQuoteRandom);
+*/
   const nextQuoteRandom = useCallback(() => {
     /*fetchData({
       url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",

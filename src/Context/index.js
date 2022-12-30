@@ -1,2 +1,2 @@
-export { default as ContextQuoteRandomProvider } from './ContextQuoteRandomProvider';
-export { default as ContextQuoteRandom } from "./ContextQuoteRandomProvider"
+export { default as ContextQuoteProvider } from "./ContextQuoteRandom";
+export { default as ContextQuote } from "./ContextQuoteRandom";

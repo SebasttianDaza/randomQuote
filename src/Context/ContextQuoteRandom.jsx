@@ -1,13 +1,15 @@
 import { createContext } from "react";
+import { useQuoteRandom } from '@Hooks';
 
-const ContextQuoteRandom = createContext();
+const ContextQuote = createContext();
 
-export const ContextQuoteRandomProvider = ({ children, value }) => {
+export const ContextQuoteProvider = ({ children }) => {
+  const state = useQuoteRandom();
   return (
-    <ContextQuoteRandom.Provider value={value}>
+    <ContextQuote.Provider value={state}>
       {children}
-    </ContextQuoteRandom.Provider>
+    </ContextQuote.Provider>
   );
-}
+};
 
-export default ContextQuoteRandom;
+export default ContextQuote;
