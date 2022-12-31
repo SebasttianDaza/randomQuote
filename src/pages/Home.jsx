@@ -1,17 +1,12 @@
-import { BiError } from "react-icons/bi";
 import { useEffect, useContext } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { BsTwitter, BsDownload } from "react-icons/bs";
 
 import { useFetch } from "@Hooks";
-import {
-  Loading,
-  RenderConditional,
-  CardGenerate,
-  SearchAuthor,
-} from "@Components";
+import { RenderConditional, CardGenerate, SearchAuthor } from "@Components";
 import { getRandomColor } from "@Services";
-import { ContextQuote } from '@context';
+import { ContextQuote } from "@context";
+import { CardHome } from "@pages/Components";
 
 const Home = ({}) => {
   const [isState, fetchData] = useFetch();
@@ -37,45 +32,19 @@ const Home = ({}) => {
     updateColorRandomSpinner(getRandomColor(true));
   }, [fetchData, updatePainting, updateColorRandom, updateColorRandomSpinner]);
 
-  const { data } = isState;
-
   return (
     <>
-      <div>
+      <Container
+        fluid
+        className={`bg-${isColorRandom} min-vh-100 d-flex flex-column justify-content-around align-items-center `}
+        style={{ transition: "all 1s ease-in-out" }}
+      >
         <Row>
           <Col>
-            {isState.isLoading ? (
-              <Loading
-                variant={isColorRandom}
-                content="Loading .."
-                animation="border"
-              />
-            ) : isState.isError ? (
-              <CardGenerate
-                quote={`“We've had a error, You go back more late ${isState.error.message}r ”`}
-                icons={[<BiError key="error1" />, <BiError key="error2" />]}
-                styles={[
-                  "bg-danger",
-                  "fs-4 fst-normal lh-base text-dark",
-                  ["mt-4", "md", "dark"],
-                ]}
-                style={{ maxWidth: "36rem", width: "80vw" }}
-              />
-            ) : isState.isSuccess ? (
-              <CardGenerate
-                quote={`“${data.content}”`}
-                icons={[
-                  <BsTwitter key="twiiter" />,
-                  <BsDownload key="download" />,
-                ]}
-                styles={[
-                  `${isPainting ? "mt-3" : ""}`,
-                  "fs-4 fst-normal lh-base text-dark",
-                  ["mt-4", "md", "primary"],
-                ]}
-                style={{ maxWidth: "36rem" }}
-              />
-            ) : null}
+            <CardHome
+              isState={isState}
+              isSettings={{ isPainting, isColorRandom }}
+            />
             <RenderConditional
               state={stateQuoteAuthor}
               colorRandom={isColorRandomSpinner}
@@ -111,7 +80,7 @@ const Home = ({}) => {
         <Row>
           <Col>{/* <SearchAuthor author={"Hello"} /> */}</Col>
         </Row>
-      </div>
+      </Container>
     </>
   );
 };
