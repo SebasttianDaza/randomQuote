@@ -1,12 +1,12 @@
 import { useCallback, useContext } from "react";
 import { RenderConditional, CardAuthor } from "@Components";
-import { ContextQuote } from "@Context";
+
 import { useFetch } from "@Hooks";
 import { BsFillForwardFill } from "react-icons/bs";
 
 const SearchAuthor = ({ author }) => {
   const [state, fetchData] = useFetch();
-  console.log(useContext(ContextQuote));
+  
   /*const {
     isPainting,
     isColorRandomSpinner,
