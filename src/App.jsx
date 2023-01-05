@@ -1,14 +1,16 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "@Errors";
 import { Home } from "@pages";
-import { ContextQuoteProvider } from "@context";
+import { ContextQuoteProvider, ContextQuoteFetchProvider } from "@context";
 
 const App = () => {
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <ContextQuoteProvider>
-          <Home />
+          <ContextQuoteFetchProvider>
+            <Home />
+          </ContextQuoteFetchProvider>
         </ContextQuoteProvider>
       </ErrorBoundary>
     </>

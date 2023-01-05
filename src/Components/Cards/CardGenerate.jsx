@@ -1,9 +1,7 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { useRef } from "react";
 import PropTypes from "prop-types";
-
 import { Card, Row, Col } from "react-bootstrap";
-
 import { ErrorFallback } from "@Errors";
 import { ButtonNetwork } from "@Components";
 import { getImage, getTweet } from "@Services";

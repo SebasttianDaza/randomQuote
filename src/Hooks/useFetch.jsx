@@ -6,7 +6,7 @@ const useFetch = () => {
     isLoading: false,
     isSuccess: false,
     isError: false,
-    data: null,
+    isData: null,
     error: null,
   });
 
@@ -16,7 +16,7 @@ const useFetch = () => {
         isLoading: true,
         isSuccess: false,
         isError: false,
-        data: null,
+        isData: null,
         error: null,
       });
 
@@ -27,7 +27,7 @@ const useFetch = () => {
         isSuccess: true,
         isError: false,
         error: null,
-        data: result,
+        isData: result,
       });
 
       return result;
@@ -36,7 +36,7 @@ const useFetch = () => {
         isLoading: false,
         isSuccess: false,
         isError: true,
-        data: null,
+        isData: null,
         error,
       });
     }

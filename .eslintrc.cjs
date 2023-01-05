@@ -7,6 +7,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
+    "prettier",
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -32,10 +33,7 @@ module.exports = {
         endOfLine: "auto",
       },
     ],
-    "no-unused-vars": [
-      "error",
-      { vars: "all", args: "after-used", ignoreRestSiblings: false },
-    ],
+    "no-unused-vars": ["error", { vars: "all", args: "after-used", ignoreRestSiblings: false }],
     "import/order": ["warn", { "newlines-between": "always" }],
     "react/self-closing-comp": "warn",
     "react-hooks/rules-of-hooks": "error",

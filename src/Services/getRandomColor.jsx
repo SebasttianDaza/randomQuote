@@ -1,13 +1,4 @@
-const color = [
-  "primary",
-  "secondary",
-  "success",
-  "danger",
-  "warning",
-  "info",
-  "light",
-  "dark",
-];
+const color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
 
 const getRandomColor = (reverse) => {
   const random = Math.floor(Math.random() * 8);

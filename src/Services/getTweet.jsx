@@ -1,4 +1,4 @@
-import { getUrl } from "@Services"; 
+import { getUrl } from "@Services";
 
 const getTweet = (element) => {
   const url = getUrl("https://twitter.com/intent/tweet", `text=${element}`);
