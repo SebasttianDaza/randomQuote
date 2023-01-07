@@ -5,16 +5,18 @@ import { PropTypes } from "prop-types";
 const ContextQuoteFetch = createContext({});
 
 export const ContextQuoteFetchProvider = ({ children }) => {
-  const [isQuote, fetchQuote] = useFetch();
-  const [isQuoteAuthor, fetchQuoteAuthor] = useFetch();
+  const [isQuote, fetchQuote, setQuote] = useFetch();
+  const [isQuoteAuthor, fetchQuoteAuthor, setQuoteAuthor] = useFetch();
 
   return (
     <ContextQuoteFetch.Provider
       value={{
         isQuote,
         fetchQuote,
+        setQuote,
         isQuoteAuthor,
         fetchQuoteAuthor,
+        setQuoteAuthor,
       }}
     >
       {children}

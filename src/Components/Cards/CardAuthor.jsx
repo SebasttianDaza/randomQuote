@@ -8,7 +8,8 @@ import { ContextQuoteFetch, ContextQuote } from "@context";
 import { getRandomColor } from "@Services";
 
 const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
-  const { fetchQuote, fetchQuoteAuthor } = useContext(ContextQuoteFetch);
+  const { fetchQuote, isQuoteAuthor, fetchQuoteAuthor, setQuoteAuthor } =
+    useContext(ContextQuoteFetch);
   const { updatePainting, updateColorRandom, updateColorRandomSpinner } = useContext(ContextQuote);
 
   const [classBtn, size, variant] = stylesBtn;
@@ -28,6 +29,19 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
   );
 
   const nextQuoteRandom = useCallback(() => {
+    const { isData } = isQuoteAuthor;
+
+    if (isData) {
+      // Reset state quote author
+      setQuoteAuthor({
+        isLoading: false,
+        isSuccess: false,
+        isError: false,
+        isData: null,
+        error: null,
+      });
+    }
+
     // Get other quote random
     fetchQuote({
       url: "https://api.quotable.io/random",
@@ -38,7 +52,14 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
     updatePainting(false);
     updateColorRandom(getRandomColor(false));
     updateColorRandomSpinner(getRandomColor(true));
-  }, [fetchQuote, updatePainting, updateColorRandom, updateColorRandomSpinner]);
+  }, [
+    fetchQuote,
+    updatePainting,
+    updateColorRandom,
+    updateColorRandomSpinner,
+    setQuoteAuthor,
+    isQuoteAuthor,
+  ]);
 
   return (
     <>
