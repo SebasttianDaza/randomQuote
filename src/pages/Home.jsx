@@ -17,6 +17,7 @@ const Home = () => {
       url: "https://api.quotable.io/random",
       method: "GET",
     });
+    // Update color, painting and random color
     updatePainting(false);
     updateColorRandom(getRandomColor(false));
     updateColorRandomSpinner(getRandomColor(true));
@@ -31,12 +32,15 @@ const Home = () => {
       >
         <Row>
           <Col>
+            {/* Render card home with quote text */}
             <CardHome isState={isQuote} isSettings={{ isPainting, isColorRandom }} />
+            {/* Render card with author and other events */}
             <CardQuote />
           </Col>
         </Row>
         <Row>
           <Col>
+            {/* Render search author */}
             <SearchAuthor />
           </Col>
         </Row>

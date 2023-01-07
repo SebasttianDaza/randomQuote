@@ -1,41 +1,16 @@
-import { useCallback, useContext } from "react";
+import { useContext } from "react";
 import { BsFillForwardFill } from "react-icons/bs";
 import { BiError } from "react-icons/bi";
 import { ErrorBoundary } from "react-error-boundary";
 import { CardAuthor, Loading, CardGenerate } from "@Components";
-import { getRandomColor } from "@Services";
 import { ContextQuote, ContextQuoteFetch } from "@context";
 import { ErrorFallback } from "@Errors";
 
 const SearchAuthor = () => {
-  const { isQuote, fetchQuote, fetchQuoteAuthor } = useContext(ContextQuoteFetch);
-
-  const { isPainting, isColorRandom, updatePainting, updateColorRandom, updateColorRandomSpinner } =
-    useContext(ContextQuote);
-
-  const nextQuoteRandom = useCallback(() => {
-    fetchQuote({
-      url: "https://api.quotable.io/random",
-      method: "GET",
-    });
-
-    updatePainting(false);
-    updateColorRandom(getRandomColor(false));
-    updateColorRandomSpinner(getRandomColor(true));
-  }, [fetchQuote, updatePainting, updateColorRandom, updateColorRandomSpinner]);
-
-  const searchQuoteAboutAuthor = useCallback(
-    async (author) => {
-      await fetchQuoteAuthor({
-        url: `https://api.quotable.io/quotes?author=${author}`,
-        method: "GET",
-      });
-
-      updatePainting(true);
-    },
-    [fetchQuoteAuthor, updatePainting],
-  );
-
+  // Get context and other context
+  const { isQuote } = useContext(ContextQuoteFetch);
+  const { isPainting, isColorRandom } = useContext(ContextQuote);
+  // Get state from context
   const { isLoading, isError, isSuccess, isData } = isQuote;
 
   return (
@@ -60,8 +35,6 @@ const SearchAuthor = () => {
               maxWidth: "35rem",
               minWidth: "20rem",
             }}
-            event={nextQuoteRandom}
-            eventCard={searchQuoteAboutAuthor}
             className={isPainting ? "mb-3" : ""}
           />
         ) : null}

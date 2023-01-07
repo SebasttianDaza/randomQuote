@@ -39,7 +39,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
             <Row>
               <Col xs="2">
                 <ButtonNetwork
-                  classGeneral={classIcons}
+                  className={classIcons}
                   content={firstIcons}
                   size={size}
                   variant={variant}
@@ -49,7 +49,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
               </Col>
               <Col xs="2">
                 <ButtonNetwork
-                  classGeneral={classIcons}
+                  className={classIcons}
                   content={thirdIcons}
                   size={size}
                   variant={variant}
