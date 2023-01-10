@@ -1,6 +1,6 @@
-const generateUrl = (url, params) => {
+const getUrl = (url, params) => {
   const urlParams = new URLSearchParams(params);
   return `${url}?${urlParams.toString()}`;
 };
 
-export default generateUrl;
+export default getUrl;

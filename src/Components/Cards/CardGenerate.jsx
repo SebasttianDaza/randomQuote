@@ -1,14 +1,10 @@
-import Card from "react-bootstrap/Card";
+import { useRef, useCallback } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { useRef } from "react";
+import { Card, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
-import ErrorFallback from "../../Errors/HandleError";
-import ButtonNetwork from "../Buttons/ButtonNetwork";
-import generateImage from "../../Function/generateImage";
-import generateTweet from "../../Function/shareTwitter";
+import { ErrorFallback } from "@Errors";
+import { ButtonNetwork } from "@Components";
+import { getImage, getTweet } from "@Services";
 
 const CardGenerate = ({ quote, icons, styles, ...props }) => {
   const [styleGeneral, styleQuote, styleIcons] = styles;
@@ -16,14 +12,10 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
   const [firstIcons, thirdIcons] = icons;
   const cardRef = useRef();
 
-  const handleClick = ({ ref, type }) => {
-    if (type === "download") {
-      generateImage(ref.current);
-    }
-    if (type === "twitter") {
-      generateTweet(ref);
-    }
-  };
+  const handleClick = useCallback(({ ref, type }) => {
+    if (type === "download") getImage(ref.current);
+    if (type === "twitter") getTweet(ref);
+  }, []);
 
   return (
     <>
@@ -43,7 +35,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
             <Row>
               <Col xs="2">
                 <ButtonNetwork
-                  classGeneral={classIcons}
+                  className={classIcons}
                   content={firstIcons}
                   size={size}
                   variant={variant}
@@ -53,7 +45,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
               </Col>
               <Col xs="2">
                 <ButtonNetwork
-                  classGeneral={classIcons}
+                  className={classIcons}
                   content={thirdIcons}
                   size={size}
                   variant={variant}

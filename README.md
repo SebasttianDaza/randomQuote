@@ -68,6 +68,21 @@ $ npm install
 $ npm run dev
 ```
 
+# Docker Ubuntu
+```
+  apt update
+  apt-get update
+  apt install apt-transport-https build-essential ca-certificates curl libssl-dev wget
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+  nvm install v17.7.0
+  npm install --unsafe-perm=true --allow-root
+  chown -R root:root .
+
+```
+
 ## Contact
 
 - Website [emprendeyourlifestyle.com](https://emprendeyourlifestyle.com/)

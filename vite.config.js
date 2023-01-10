@@ -1,7 +1,16 @@
 import { defineConfig } from "vite";
+import { ViteAliases } from "vite-aliases";
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), ViteAliases()],
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    host: true, // needed for the Docker Container port mapping to work
+    strictPort: true,
+    port: 3000,
+  },
 });

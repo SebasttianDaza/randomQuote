@@ -1,13 +1,12 @@
 import { useCallback, useState } from "react";
-
-import sendRequest from "../APIs/sendRequest";
+import { sendRequest } from "@Services";
 
 const useFetch = () => {
   const [fetchState, setFetchState] = useState({
     isLoading: false,
     isSuccess: false,
     isError: false,
-    data: null,
+    isData: null,
     error: null,
   });
 
@@ -17,7 +16,7 @@ const useFetch = () => {
         isLoading: true,
         isSuccess: false,
         isError: false,
-        data: null,
+        isData: null,
         error: null,
       });
 
@@ -28,7 +27,7 @@ const useFetch = () => {
         isSuccess: true,
         isError: false,
         error: null,
-        data: result,
+        isData: result,
       });
 
       return result;
@@ -37,13 +36,13 @@ const useFetch = () => {
         isLoading: false,
         isSuccess: false,
         isError: true,
-        data: null,
+        isData: null,
         error,
       });
     }
   }, []);
 
-  return [fetchState, fetchData];
+  return [fetchState, fetchData, setFetchState];
 };
 
 export default useFetch;
