@@ -1,7 +1,7 @@
+import { useRef, useCallback } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { useRef } from "react";
-import PropTypes from "prop-types";
 import { Card, Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 import { ErrorFallback } from "@Errors";
 import { ButtonNetwork } from "@Components";
 import { getImage, getTweet } from "@Services";
@@ -12,14 +12,10 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
   const [firstIcons, thirdIcons] = icons;
   const cardRef = useRef();
 
-  const handleClick = ({ ref, type }) => {
-    if (type === "download") {
-      getImage(ref.current);
-    }
-    if (type === "twitter") {
-      getTweet(ref);
-    }
-  };
+  const handleClick = useCallback(({ ref, type }) => {
+    if (type === "download") getImage(ref.current);
+    if (type === "twitter") getTweet(ref);
+  }, []);
 
   return (
     <>

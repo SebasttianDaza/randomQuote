@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import PropTypes from "prop-types";
 
@@ -15,4 +16,4 @@ Loading.propTypes = {
   animation: PropTypes.string.isRequired,
 };
 
-export default Loading;
+export default memo(Loading);

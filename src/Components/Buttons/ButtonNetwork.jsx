@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Button from "react-bootstrap/Button";
 import { ErrorBoundary } from "react-error-boundary";
 import PropTypes from "prop-types";
@@ -24,4 +25,4 @@ ButtonNetwork.propTypes = {
   params: PropTypes.arrayOf(PropTypes.any),
 };
 
-export default ButtonNetwork;
+export default memo(ButtonNetwork);
