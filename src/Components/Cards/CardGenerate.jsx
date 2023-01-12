@@ -4,18 +4,29 @@ import { Card, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { ErrorFallback } from "@Errors";
 import { ButtonNetwork } from "@Components";
-import { getImage, getTweet } from "@Services";
+import { useHtmlImage } from "@Hooks";
 
 const CardGenerate = ({ quote, icons, styles, ...props }) => {
-  const [styleGeneral, styleQuote, styleIcons] = styles;
+  const [styleGeneral, styleIcons] = styles;
   const [classIcons, size, variant] = styleIcons;
   const [firstIcons, thirdIcons] = icons;
+  const { downloadPng } = useHtmlImage();
   const cardRef = useRef();
 
-  const handleClick = useCallback(({ ref, type }) => {
-    if (type === "download") getImage(ref.current);
-    if (type === "twitter") getTweet(ref);
-  }, []);
+  const handleClick = useCallback(
+    ({ ref, type }) => {
+      if (type === "download") {
+        downloadPng(quote, ref.current);
+      }
+      if (type === "twitter") {
+        // Import that functionality
+        import("@Services").then(({ getTweet }) => {
+          getTweet(ref);
+        });
+      }
+    },
+    [quote, downloadPng],
+  );
 
   return (
     <>
@@ -27,7 +38,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
                 <hr className="w-25 h-100 mt-0" />
               </Col>
               <Col>
-                <Card.Title id="text" className={styleQuote}>
+                <Card.Title id="text" className="fs-4 fst-normal lh-base text-dark">
                   {quote}
                 </Card.Title>
               </Col>

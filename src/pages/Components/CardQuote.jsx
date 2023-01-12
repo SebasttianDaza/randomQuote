@@ -23,7 +23,7 @@ const CardQuote = () => {
         <CardGenerate
           quote={`“${content}”`}
           icons={[<BsTwitter key={_id} />, <BsDownload key={_id} />]}
-          styles={["mt-2 mb-2", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "primary"]]}
+          styles={["mt-2 mb-2", ["mt-4", "md", "primary"]]}
           style={{
             maxWidth: "36rem",
             transition: "all 1s ease-in-out",
@@ -47,7 +47,7 @@ const CardQuote = () => {
           <CardGenerate
             quote={`“We've had an error ${error}”`}
             icons={[<BiError key="error1" />, <BiError key="error2" />]}
-            styles={["bg-danger", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "dark"]]}
+            styles={["bg-danger", ["mt-4", "md", "dark"]]}
             style={{ maxWidth: "36rem", width: "60vw" }}
           />
         ) : isSuccess ? (

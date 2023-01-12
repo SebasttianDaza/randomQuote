@@ -17,7 +17,7 @@ const CardHome = ({ isState, isSettings }) => {
         <CardGenerate
           quote={`“We've had a error, You go back more late ${error.message}r ”`}
           icons={[<BiError key="error1" />, <BiError key="error2" />]}
-          styles={["bg-danger", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "dark"]]}
+          styles={["bg-danger", ["mt-4", "md", "dark"]]}
           style={{ maxWidth: "36rem", width: "80vw" }}
         />
       ) : isSuccess ? (
@@ -25,11 +25,7 @@ const CardHome = ({ isState, isSettings }) => {
         <CardGenerate
           quote={`“${isData.content}”`}
           icons={[<BsTwitter key="twiiter" />, <BsDownload key="download" />]}
-          styles={[
-            `${isPainting ? "mt-3" : ""}`,
-            "fs-4 fst-normal lh-base text-dark",
-            ["mt-4", "md", "primary"],
-          ]}
+          styles={[`${isPainting ? "mt-3" : ""}`, ["mt-4", "md", "primary"]]}
           style={{ maxWidth: "36rem" }}
         />
       ) : null}
