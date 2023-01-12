@@ -1,39 +1,40 @@
 import { useRef, useCallback } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { Card, Row, Col } from "react-bootstrap";
+import { ErrorBoundary } from "react-error-boundary";
 import PropTypes from "prop-types";
 import { ErrorFallback } from "@Errors";
 import { ButtonNetwork } from "@Components";
 import { useHtmlImage } from "@Hooks";
 
-const CardGenerate = ({ quote, icons, styles, ...props }) => {
-  const [styleGeneral, styleIcons] = styles;
-  const [classIcons, size, variant] = styleIcons;
-  const [firstIcons, thirdIcons] = icons;
+const CardGenerate = ({ isText, icons, styles, ...props }) => {
+  const { quote, author } = isText;
   const { downloadPng } = useHtmlImage();
   const cardRef = useRef();
 
+  const [styleGeneral, variant] = styles;
+  const [firstIcons, thirdIcons] = icons;
+
   const handleClick = useCallback(
-    ({ ref, type }) => {
+    (type) => {
       if (type === "download") {
-        downloadPng(quote, ref.current);
+        downloadPng(author.replace(/\s+/g, ""), cardRef.current);
       }
       if (type === "twitter") {
         // Import that functionality
         import("@Services").then(({ getTweet }) => {
-          getTweet(ref);
+          getTweet(`${quote} - ${author}`);
         });
       }
     },
-    [quote, downloadPng],
+    [downloadPng, author, quote],
   );
 
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Card id="quote-box" className={styleGeneral} {...props} ref={cardRef}>
+        <Card id="quote-box" className={styleGeneral} {...props}>
           <Card.Body>
-            <Row>
+            <Row ref={cardRef}>
               <Col xs={1}>
                 <hr className="w-25 h-100 mt-0" />
               </Col>
@@ -46,22 +47,22 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
             <Row>
               <Col xs="2">
                 <ButtonNetwork
-                  className={classIcons}
                   content={firstIcons}
-                  size={size}
-                  variant={variant}
                   event={handleClick}
-                  params={[true, quote, "twitter"]}
+                  name="twitter"
+                  className="mt-4"
+                  size="md"
+                  variant={variant}
                 />
               </Col>
               <Col xs="2">
                 <ButtonNetwork
-                  className={classIcons}
                   content={thirdIcons}
-                  size={size}
-                  variant={variant}
                   event={handleClick}
-                  params={[true, cardRef, "download"]}
+                  name="download"
+                  className="mt-4"
+                  size="md"
+                  variant={variant}
                 />
               </Col>
             </Row>
@@ -73,7 +74,7 @@ const CardGenerate = ({ quote, icons, styles, ...props }) => {
 };
 
 CardGenerate.propTypes = {
-  quote: PropTypes.string.isRequired,
+  isText: PropTypes.object.isRequired,
   icons: PropTypes.arrayOf(PropTypes.object).isRequired,
   styles: PropTypes.array,
 };

@@ -4,14 +4,11 @@ import { ErrorBoundary } from "react-error-boundary";
 import PropTypes from "prop-types";
 import { ErrorFallback } from "@Errors";
 
-const ButtonNetwork = ({ content, event, params, ...args }) => {
-  const [isShow, cardRef, network] = params;
-  const paramsFunction = isShow ? { ref: cardRef, type: network } : null;
-
+const ButtonNetwork = ({ content, event, name, ...args }) => {
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Button type="button" {...args} onClick={() => event(paramsFunction)} active>
+        <Button type="button" {...args} onClick={() => event(name)} active>
           {content}
         </Button>
       </ErrorBoundary>
@@ -22,7 +19,7 @@ const ButtonNetwork = ({ content, event, params, ...args }) => {
 ButtonNetwork.propTypes = {
   content: PropTypes.object.isRequired,
   event: PropTypes.func,
-  params: PropTypes.arrayOf(PropTypes.any),
+  name: PropTypes.string.isRequired,
 };
 
 export default memo(ButtonNetwork);
