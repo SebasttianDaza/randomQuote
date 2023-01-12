@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { SearchAuthor } from "@Components";
 import { getRandomColor } from "@Services";
 import { ContextQuote, ContextQuoteFetch } from "@context";

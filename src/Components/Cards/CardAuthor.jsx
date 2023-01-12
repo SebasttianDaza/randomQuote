@@ -7,13 +7,12 @@ import { ButtonNetwork } from "@Components";
 import { ContextQuoteFetch, ContextQuote } from "@context";
 import { getRandomColor } from "@Services";
 
-const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
+const CardAuthor = ({ icon, contentCard, ...props }) => {
   const { fetchQuote, isQuoteAuthor, fetchQuoteAuthor, setQuoteAuthor } =
     useContext(ContextQuoteFetch);
   const { updatePainting, updateColorRandom, updateColorRandomSpinner } = useContext(ContextQuote);
 
-  const [classBtn, size, variant] = stylesBtn;
-  const [title, subtitle] = contentCard;
+  const [author, authorSlug] = contentCard;
 
   const searchQuoteAboutAuthor = useCallback(
     async (author) => {
@@ -70,20 +69,20 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
               <Col>
                 <Card.Title
                   style={{ cursor: "pointer" }}
-                  onClick={() => searchQuoteAboutAuthor(title)}
+                  onClick={() => searchQuoteAboutAuthor(author)}
                 >
-                  {title}
+                  {author}
                 </Card.Title>
-                <Card.Subtitle>{subtitle}</Card.Subtitle>
+                <Card.Subtitle>{authorSlug}</Card.Subtitle>
               </Col>
               <Col xs="3">
                 <ButtonNetwork
-                  className={classBtn}
-                  content={contentBtn}
-                  size={size}
-                  variant={variant}
+                  className=""
+                  content={icon}
+                  size="md"
+                  variant="primary"
                   event={nextQuoteRandom}
-                  params={[false, null, null]}
+                  name="Click"
                 />
               </Col>
             </Row>
@@ -95,8 +94,7 @@ const CardAuthor = ({ contentBtn, stylesBtn, contentCard, ...props }) => {
 };
 
 CardAuthor.propTypes = {
-  contentBtn: PropTypes.object.isRequired,
-  stylesBtn: PropTypes.arrayOf(PropTypes.string).isRequired,
+  icon: PropTypes.object.isRequired,
   contentCard: PropTypes.arrayOf(PropTypes.string).isRequired,
   event: PropTypes.func,
 };

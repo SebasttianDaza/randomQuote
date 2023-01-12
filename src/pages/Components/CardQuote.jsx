@@ -17,13 +17,13 @@ const CardQuote = () => {
     const { results } = data;
 
     return results.slice(0, 3).map((result) => {
-      const { _id, content } = result;
+      const { _id, content, author } = result;
 
       return (
         <CardGenerate
-          quote={`“${content}”`}
+          isText={{ quote: `“${content}”`, author }}
           icons={[<BsTwitter key={_id} />, <BsDownload key={_id} />]}
-          styles={["mt-2 mb-2", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "primary"]]}
+          styles={["mt-2 mb-2", "primary"]}
           style={{
             maxWidth: "36rem",
             transition: "all 1s ease-in-out",
@@ -45,9 +45,9 @@ const CardQuote = () => {
         ) : isError ? (
           // Render error if it is error
           <CardGenerate
-            quote={`“We've had an error ${error}”`}
+            isText={`“We've had an error ${error}”`}
             icons={[<BiError key="error1" />, <BiError key="error2" />]}
-            styles={["bg-danger", "fs-4 fst-normal lh-base text-dark", ["mt-4", "md", "dark"]]}
+            styles={["bg-danger", "dark"]}
             style={{ maxWidth: "36rem", width: "60vw" }}
           />
         ) : isSuccess ? (
