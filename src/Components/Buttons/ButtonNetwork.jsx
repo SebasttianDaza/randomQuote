@@ -11,7 +11,7 @@ const ButtonNetwork = ({ content, event, params, ...args }) => {
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Button {...args} onClick={() => event(paramsFunction)} active>
+        <Button type="button" {...args} onClick={() => event(paramsFunction)} active>
           {content}
         </Button>
       </ErrorBoundary>
