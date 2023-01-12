@@ -95,7 +95,6 @@ const CardAuthor = ({ icon, contentCard, ...props }) => {
 
 CardAuthor.propTypes = {
   icon: PropTypes.object.isRequired,
-  stylesBtn: PropTypes.arrayOf(PropTypes.string).isRequired,
   contentCard: PropTypes.arrayOf(PropTypes.string).isRequired,
   event: PropTypes.func,
 };

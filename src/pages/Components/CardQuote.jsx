@@ -17,11 +17,11 @@ const CardQuote = () => {
     const { results } = data;
 
     return results.slice(0, 3).map((result) => {
-      const { _id, content } = result;
+      const { _id, content, author } = result;
 
       return (
         <CardGenerate
-          isText={{ quote: `“${content}”`, author: "" }}
+          isText={{ quote: `“${content}”`, author }}
           icons={[<BsTwitter key={_id} />, <BsDownload key={_id} />]}
           styles={["mt-2 mb-2", "primary"]}
           style={{

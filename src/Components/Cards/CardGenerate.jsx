@@ -33,8 +33,8 @@ const CardGenerate = ({ isText, icons, styles, ...props }) => {
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Card id="quote-box" className={styleGeneral} {...props}>
-          <Card.Body>
-            <Row ref={cardRef}>
+          <Card.Body ref={cardRef}>
+            <Row>
               <Col xs={1}>
                 <hr className="w-25 h-100 mt-0" />
               </Col>
